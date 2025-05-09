@@ -1,10 +1,10 @@
 using System.Text;
-using CrudProducts.Properties.Domain.Models;
 using CrudProducts.Properties.Infrastructure.Data;
+using CrudProducts.src.Application.Services.Implements;
+using CrudProducts.src.Application.Services.Interfaces;
 using CrudProducts.src.Infrastructure.Data;
 using DotNetEnv;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,7 +15,7 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-
+builder.Services.AddScoped<IProductService, ProductService>();
 
 //Conexión a base de datos de módulo de usuarios (MySQL)
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));

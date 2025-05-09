@@ -5,11 +5,11 @@ namespace CrudProducts.Properties.Domain.Models
 {
     public class Product
     {
-        public int Id { get; set; }
-        [Column("varchar(50)")]
+        public Guid Id { get; set; } = Guid.NewGuid();    
+        [Column(TypeName = "varchar(50)")]
         public string Name { get; set; } = string.Empty;
-        
-        [Column("varchar(30)")]
+
+        [Column(TypeName = "varchar(30)")]
         public string SKU { get; set; } = string.Empty;
 
         public int Price { get; set; }

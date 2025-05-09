@@ -28,18 +28,6 @@ namespace CrudProducts.src.Infrastructure.Data
                         catch (MySqlException ex) when (ex.SqlState == "42P07") {
                             logger.LogWarning("Algunas tablas ya existen en la base de datos MySQL: {Message}", ex.Message);
                     }
-                    
-                    if(!await context.Users.AnyAsync())
-                    {
-                        var customer = new User(){
-                            UserName = Guid.NewGuid().ToString(),
-                            Email = "juan@gmail.com",
-                            NormalizedEmail = "JUAN@GMAIL.COM",
-                        };
-                        customer.PasswordHash = new PasswordHasher<User>().HashPassword(customer, "Password123!");
-                        context.Users.Add(customer);
-                        await context.SaveChangesAsync();
-                    }
                     if(!await context.Products.AnyAsync())
                     {
                         var faker = new Faker<Product>("es")

@@ -11,13 +11,12 @@ using Microsoft.IdentityModel.Tokens;
 Env.Load();
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<DataContext>().AddDefaultTokenProviders();
+
+
 //Conexión a base de datos de módulo de usuarios (MySQL)
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 21));
 builder.Services.AddDbContextPool<DataContext>(options =>
@@ -55,26 +54,8 @@ builder.Services.AddAuthentication( options => {
 });
 
 
-//Configuración de identity
-builder.Services.Configure<IdentityOptions>(options =>
-{
-    //Configuración de contraseña
-    options.Password.RequireDigit = true;
-    options.Password.RequiredLength = 8;
-    options.Password.RequireNonAlphanumeric = false;
-
-    //Configuración de Email
-    options.User.RequireUniqueEmail = true;
-
-    //Configuración de UserName 
-    options.User.AllowedUserNameCharacters = "abcdefghijklmnñpqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._";
-
-    //Configuración de retrys
-    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-    options.Lockout.MaxFailedAccessAttempts = 5;
-    options.Lockout.AllowedForNewUsers = true;
-});
 var app = builder.Build();
+
 //Llamado al dataseeder
 using (var scope = app.Services.CreateScope())
 {

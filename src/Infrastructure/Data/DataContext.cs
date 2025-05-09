@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CrudProducts.Properties.Infrastructure.Data
 {
-    public class DataContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options){}
 

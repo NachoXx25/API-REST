@@ -24,14 +24,14 @@ namespace CrudProducts.src.Api
         /// <summary>
         /// Obtiene un producto por su ID.
         /// </summary>
-        /// <param name="id">ID del producto.</param>
-        /// <returns>El producto correspondiente al ID proporcionado.</returns>
-        [HttpGet("{id}")]
+        /// <param name="SKU">SKU del producto.</param>
+        /// <returns>El producto correspondiente al SKU proporcionado.</returns>
+        [HttpGet("{SKU}")]
         [Authorize]
-        public async Task<IActionResult> GetProductById(string id)
+        public async Task<IActionResult> GetProductBySKU(string SKU)
         {
             try{
-                var product = await _productService.GetProductById(id);
+                var product = await _productService.GetProductBySKU(SKU);
                 if (product == null)
                 {
                     return NotFound(new { message = "Producto no encontrado" });
@@ -67,6 +67,11 @@ namespace CrudProducts.src.Api
             }
         }
 
+        /// <summary>
+        /// Crea un nuevo producto.
+        /// </summary>
+        /// <param name="productDto">DTO del producto a crear.</param>
+        /// <returns>Resultado de la creación del producto.</returns>
         [HttpPost]
         [Authorize]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto productDto)
@@ -79,7 +84,40 @@ namespace CrudProducts.src.Api
                 {
                     return BadRequest(new { message = "El producto ya existe" });
                 }
-                return NoContent();
+                return Created();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error interno del servidor", error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Actualiza un producto existente.
+        /// </summary>
+        /// <param name="SKU">SKU del producto a actualizar.</param>
+        /// <param name="productDto">DTO del producto con los nuevos datos.</param>
+        /// <returns>Resultado de la actualización del producto.</returns>
+        [HttpPatch("{SKU}")]
+        [Authorize]
+        public async Task<IActionResult> UpdateProduct(string SKU, [FromForm] UpdateProductDto productDto)
+        {
+            if(!ModelState.IsValid) return BadRequest(new { ModelState });
+            if(string.IsNullOrWhiteSpace(productDto.Name) && string.IsNullOrWhiteSpace(productDto.SKU) && string.IsNullOrWhiteSpace(productDto.Price) && string.IsNullOrWhiteSpace(productDto.Stock)) return BadRequest(new { message = "No se han proporcionado datos para actualizar el producto" });
+            try
+            {
+                var result = await _productService.UpdateProduct(SKU, productDto);
+                if (result is bool boolResult)
+                {
+                    return boolResult ? NoContent() : NotFound(new { message = "Producto no encontrado" });
+                }
+                else if (result is null)
+                {
+                    return BadRequest(new { message = "No se han realizado cambios en el producto" });
+                }
+                else {
+                    return BadRequest(new { message = "El SKU ya existe" });
+                }
             }
             catch (Exception ex)
             {

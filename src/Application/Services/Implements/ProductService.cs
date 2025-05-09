@@ -53,13 +53,55 @@ namespace CrudProducts.src.Application.Services.Implements
         }
 
         /// <summary>
-        /// Obtiene un producto por su ID.
+        /// Obtiene un producto por su SKU.
         /// </summary>
-        /// <param name="id">ID del producto.</param>
-        /// <returns>El producto correspondiente al ID proporcionado.</returns>
-        public async Task<Product?> GetProductById(string id)
+        /// <param name="SKU">SKU del producto.</param>
+        /// <returns>El producto correspondiente al SKU proporcionado.</returns>
+        public async Task<Product?> GetProductBySKU(string SKU)
         {
-            return await _context.Products.AsNoTracking().FirstOrDefaultAsync( p => p.Id.ToString() == id);
+            return await _context.Products.AsNoTracking().FirstOrDefaultAsync( p => p.SKU == SKU);
+        }
+
+        /// <summary>
+        /// Actualiza un producto existente.
+        /// </summary>
+        /// <param name="SKU">SKU del producto a actualizar.</param>
+        /// <param name="product">Producto con los nuevos datos.</param>
+        /// <returns>True si se actualizó el producto, false en caso contrario.</returns>
+        public async Task<object?> UpdateProduct(string SKU, UpdateProductDto product)
+        {
+            var verifyProduct = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.SKU == SKU);
+            if (verifyProduct == null) return false;
+            if (!string.IsNullOrWhiteSpace(product.SKU) && product.SKU != SKU)
+            {
+                
+                var existingSku = await _context.Products.AsNoTracking().AnyAsync(p => p.SKU == product.SKU);
+                    
+                if (existingSku) return -1; 
+            }
+            bool unchanged = 
+                (product.Name ?? "") == verifyProduct.Name && 
+                (product.SKU ?? "") == verifyProduct.SKU &&
+                (product.Price ?? "") == verifyProduct.Price.ToString() && 
+                (product.Stock ?? "") == verifyProduct.Stock.ToString();
+            
+            if (unchanged) return null;
+            
+            if (!string.IsNullOrWhiteSpace(product.Name))
+                verifyProduct.Name = product.Name;
+            
+            if (!string.IsNullOrWhiteSpace(product.SKU))
+                verifyProduct.SKU = product.SKU;
+            
+            if (!string.IsNullOrWhiteSpace(product.Price))
+                verifyProduct.Price = int.Parse(product.Price);
+            
+            if (!string.IsNullOrWhiteSpace(product.Stock))
+                verifyProduct.Stock = int.Parse(product.Stock);
+
+            _context.Products.Update(verifyProduct);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

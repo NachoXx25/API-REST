@@ -10,11 +10,11 @@ namespace CrudProducts.src.Application.Services.Interfaces
     public interface IProductService
     {
         /// <summary>
-        /// Obtiene un producto por su ID.
+        /// Obtiene un producto por su SKU.
         /// </summary>
-        /// <param name="id">ID del producto.</param>
-        /// <returns>El producto correspondiente al ID proporcionado.</returns>
-        Task<Product?> GetProductById(string id);
+        /// <param name="SKU">SKU del producto.</param>
+        /// <returns>El producto correspondiente al SKU proporcionado.</returns>
+        Task<Product?> GetProductBySKU(string SKU);
 
         /// <summary>
         /// Obtiene todos los productos.
@@ -30,5 +30,13 @@ namespace CrudProducts.src.Application.Services.Interfaces
         /// <param name="product">Producto a crear.</param>
         /// <returns>True si se creó el producto, false en caso contrario.</returns>
         Task<bool> CreateProduct(CreateProductDto product);
+
+        /// <summary>
+        /// Actualiza un producto existente.
+        /// </summary>
+        /// <param name="SKU">SKU del producto a actualizar.</param>
+        /// <param name="product">Producto con los nuevos datos.</param>
+        /// <returns>True si se actualizó el producto, false en caso contrario.</returns>
+        Task<object?> UpdateProduct(string SKU, UpdateProductDto product);
     }
 }

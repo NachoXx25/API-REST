@@ -37,6 +37,14 @@ namespace CrudProducts.src.Infrastructure.Data
                             .RuleFor(p => p.Stock, f => f.Random.Int(1, 1000))
                             .RuleFor(p => p.IsActive, f => f.Random.Bool());
                         var products = faker.Generate(100);
+                        products.Add(new Product
+                        {
+                            SKU = "1234567890123",
+                            Name = "Secador de pelo",
+                            Price = 100,
+                            Stock = 10,
+                            IsActive = true
+                        });
                         context.Products.AddRange(products);
                         await context.SaveChangesAsync();
                     }

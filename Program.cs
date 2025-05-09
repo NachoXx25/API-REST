@@ -63,7 +63,10 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
-app.UseSwaggerUI();
+app.UseSwaggerUI( options =>
+{
+    options.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1");
+});
 app.UseSwagger();
 app.UseAuthentication();
 app.UseAuthorization();

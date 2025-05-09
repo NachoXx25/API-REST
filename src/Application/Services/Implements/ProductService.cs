@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CrudProducts.Properties.Domain.Models;
 using CrudProducts.Properties.Infrastructure.Data;
+using CrudProducts.src.Application.DTOs;
 using CrudProducts.src.Application.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,6 +16,28 @@ namespace CrudProducts.src.Application.Services.Implements
         public ProductService(DataContext context)
         {
             _context = context;
+        }
+
+        /// <summary>
+        /// Crea un nuevo producto.
+        /// </summary>
+        /// <param name="product">Producto a crear.</param>
+        /// <returns>True si se creó el producto, false en caso contrario.</returns>
+        public async Task<bool> CreateProduct(CreateProductDto product)
+        {
+            var veriFyProduct = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.SKU == product.SKU);
+            if (veriFyProduct != null) return false;
+
+            var newProduct = new Product
+            {
+                Name = product.Name,
+                SKU = product.SKU,
+                Price = int.Parse(product.Price),
+                Stock = int.Parse(product.Stock)
+            };
+           await _context.Products.AddAsync(newProduct);
+           await _context.SaveChangesAsync();
+           return true;
         }
 
         /// <summary>

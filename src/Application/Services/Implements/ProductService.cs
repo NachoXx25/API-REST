@@ -41,6 +41,20 @@ namespace CrudProducts.src.Application.Services.Implements
         }
 
         /// <summary>
+        /// Elimina un producto por su SKU.
+        /// </summary>
+        /// <param name="SKU">SKU del producto a eliminar.</param>
+        /// <returns>True si se eliminó el producto, false en caso contrario.</returns>
+        public async Task<bool> DeleteProduct(string SKU)
+        {
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.SKU == SKU);
+            if (product == null) return false;
+            product.IsActive = false;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        /// <summary>
         /// Obtiene todos los productos.
         /// </summary>
         /// <param name="page">Número de página.</param>

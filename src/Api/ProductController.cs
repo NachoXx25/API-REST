@@ -124,5 +124,29 @@ namespace CrudProducts.src.Api
                 return StatusCode(500, new { message = "Error interno del servidor", error = ex.Message });
             }
         }
+
+        /// <summary>
+        /// Elimina un producto por su SKU.
+        /// </summary>
+        /// <param name="SKU">SKU del producto a eliminar.</param>
+        /// <returns>Resultado de la eliminación del producto.</returns>
+        [HttpDelete("{SKU}")]
+        [Authorize]
+        public async Task<IActionResult> DeleteProduct(string SKU)
+        {
+            try
+            {
+                var result = await _productService.DeleteProduct(SKU);
+                if (result) return NoContent();
+                else
+                {
+                    return NotFound(new { message = "Producto no encontrado" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { message = "Error interno del servidor", error = ex.Message });
+            }
+        }
     }
 }

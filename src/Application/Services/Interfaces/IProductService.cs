@@ -38,5 +38,12 @@ namespace CrudProducts.src.Application.Services.Interfaces
         /// <param name="product">Producto con los nuevos datos.</param>
         /// <returns>True si se actualizó el producto, false en caso contrario.</returns>
         Task<object?> UpdateProduct(string SKU, UpdateProductDto product);
+
+        /// <summary>
+        /// Elimina un producto por su SKU.
+        /// </summary>
+        /// <param name="SKU">SKU del producto a eliminar.</param>
+        /// <returns>True si se eliminó el producto, false en caso contrario.</returns>
+        Task<bool> DeleteProduct(string SKU);
     }
 }

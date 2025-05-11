@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Leer Producto por SKU",
+			"name": "Leer Producto por ID",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -88,7 +88,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"name\": \"Electro Lavadora\",\r\n  \"sku\": \"12345678912\",\r\n  \"price\": \"100\",\r\n  \"stock\": \"12\"\r\n}",
+					"raw": "{\r\n  \"name\": \"Electro Lavadora\",\r\n  \"sku\": \"123456s78912\",\r\n  \"price\": \"1000\",\r\n  \"stock\": \"120\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -132,7 +132,7 @@
 						},
 						{
 							"key": "Sku",
-							"value": "12345678999999",
+							"value": "123456777",
 							"type": "text"
 						},
 						{
@@ -148,13 +148,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{URL}}/productos/1234567890123",
+					"raw": "{{URL}}/productos/577578e7-5981-4543-958c-8c0f1337bc73",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
 						"productos",
-						"1234567890123"
+						"577578e7-5981-4543-958c-8c0f1337bc73"
 					]
 				}
 			},
@@ -180,13 +180,13 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "{{URL}}/productos/1234567890123",
+					"raw": "{{URL}}/productos/d81db7bf-9340-482d-a626-c78906b24656",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
 						"productos",
-						"1234567890123"
+						"d81db7bf-9340-482d-a626-c78906b24656"
 					]
 				}
 			},

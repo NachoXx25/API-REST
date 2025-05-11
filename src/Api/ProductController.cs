@@ -137,7 +137,13 @@ namespace CrudProducts.src.Api
             try
             {
                 var result = await _productService.DeleteProduct(ID);
-                if (result) return NoContent();
+                if (result is bool boolResult) {
+                    return boolResult ? NoContent() : NotFound(new { message = "Producto no encontrado" });
+                }
+                else if (result is int intResult)
+                {
+                    return BadRequest(new { message = "El producto ya ha sido eliminado" });
+                }
                 else
                 {
                     return NotFound(new { message = "Producto no encontrado" });

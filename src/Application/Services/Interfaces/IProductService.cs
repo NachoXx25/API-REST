@@ -44,6 +44,6 @@ namespace CrudProducts.src.Application.Services.Interfaces
         /// </summary>
         /// <param name="SKU">SKU del producto a eliminar.</param>
         /// <returns>True si se eliminó el producto, false en caso contrario.</returns>
-        Task<bool> DeleteProduct(string SKU);
+        Task<object> DeleteProduct(string SKU);
     }
 }

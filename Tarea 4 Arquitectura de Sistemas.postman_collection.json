@@ -22,13 +22,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL}}/productos/1234567890123",
+					"raw": "{{URL}}/productos/00ca7350-b3fb-4d35-813f-9155304ee73d",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
 						"productos",
-						"1234567890123"
+						"00ca7350-b3fb-4d35-813f-9155304ee73d"
 					]
 				}
 			},
@@ -132,7 +132,7 @@
 						},
 						{
 							"key": "Sku",
-							"value": "123456777",
+							"value": "1234556",
 							"type": "text"
 						},
 						{
@@ -148,13 +148,13 @@
 					]
 				},
 				"url": {
-					"raw": "{{URL}}/productos/577578e7-5981-4543-958c-8c0f1337bc73",
+					"raw": "{{URL}}/productos/00ca7350-b3fb-4d35-813f-9155304ee73d",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
 						"productos",
-						"577578e7-5981-4543-958c-8c0f1337bc73"
+						"00ca7350-b3fb-4d35-813f-9155304ee73d"
 					]
 				}
 			},
@@ -180,13 +180,13 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "{{URL}}/productos/d81db7bf-9340-482d-a626-c78906b24656",
+					"raw": "{{URL}}/productos/00ca7350-b3fb-4d35-813f-9155304ee73d",
 					"host": [
 						"{{URL}}"
 					],
 					"path": [
 						"productos",
-						"d81db7bf-9340-482d-a626-c78906b24656"
+						"00ca7350-b3fb-4d35-813f-9155304ee73d"
 					]
 				}
 			},

@@ -45,10 +45,11 @@ namespace CrudProducts.src.Application.Services.Implements
         /// </summary>
         /// <param name="ID">ID del producto a eliminar.</param>
         /// <returns>True si se eliminó el producto, false en caso contrario.</returns>
-        public async Task<bool> DeleteProduct(string ID)
+        public async Task<object> DeleteProduct(string ID)
         {
             var product = await _context.Products.FirstOrDefaultAsync(p => p.Id.ToString() == ID);
             if (product == null) return false;
+            if(product.IsActive == false) return -1;
             product.IsActive = false;
             await _context.SaveChangesAsync();
             return true;

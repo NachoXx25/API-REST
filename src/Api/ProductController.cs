@@ -24,14 +24,14 @@ namespace CrudProducts.src.Api
         /// <summary>
         /// Obtiene un producto por su ID.
         /// </summary>
-        /// <param name="SKU">SKU del producto.</param>
-        /// <returns>El producto correspondiente al SKU proporcionado.</returns>
-        [HttpGet("{SKU}")]
+        /// <param name="ID">ID del producto.</param>
+        /// <returns>El producto correspondiente al ID proporcionado.</returns>
+        [HttpGet("{ID}")]
         [Authorize]
-        public async Task<IActionResult> GetProductBySKU(string SKU)
+        public async Task<IActionResult> GetProductByID(string ID)
         {
             try{
-                var product = await _productService.GetProductBySKU(SKU);
+                var product = await _productService.GetProductByID(ID);
                 if (product == null)
                 {
                     return NotFound(new { message = "Producto no encontrado" });
@@ -95,18 +95,18 @@ namespace CrudProducts.src.Api
         /// <summary>
         /// Actualiza un producto existente.
         /// </summary>
-        /// <param name="SKU">SKU del producto a actualizar.</param>
+        /// <param name="ID">ID del producto a actualizar.</param>
         /// <param name="productDto">DTO del producto con los nuevos datos.</param>
         /// <returns>Resultado de la actualización del producto.</returns>
-        [HttpPatch("{SKU}")]
+        [HttpPatch("{ID}")]
         [Authorize]
-        public async Task<IActionResult> UpdateProduct(string SKU, [FromForm] UpdateProductDto productDto)
+        public async Task<IActionResult> UpdateProduct(string ID, [FromForm] UpdateProductDto productDto)
         {
             if(!ModelState.IsValid) return BadRequest(new { ModelState });
             if(string.IsNullOrWhiteSpace(productDto.Name) && string.IsNullOrWhiteSpace(productDto.SKU) && string.IsNullOrWhiteSpace(productDto.Price) && string.IsNullOrWhiteSpace(productDto.Stock)) return BadRequest(new { message = "No se han proporcionado datos para actualizar el producto" });
             try
             {
-                var result = await _productService.UpdateProduct(SKU, productDto);
+                var result = await _productService.UpdateProduct(ID, productDto);
                 if (result is bool boolResult)
                 {
                     return boolResult ? NoContent() : NotFound(new { message = "Producto no encontrado" });
@@ -128,15 +128,15 @@ namespace CrudProducts.src.Api
         /// <summary>
         /// Elimina un producto por su SKU.
         /// </summary>
-        /// <param name="SKU">SKU del producto a eliminar.</param>
+        /// <param name="ID">ID del producto a eliminar.</param>
         /// <returns>Resultado de la eliminación del producto.</returns>
-        [HttpDelete("{SKU}")]
+        [HttpDelete("{ID}")]
         [Authorize]
-        public async Task<IActionResult> DeleteProduct(string SKU)
+        public async Task<IActionResult> DeleteProduct(string ID)
         {
             try
             {
-                var result = await _productService.DeleteProduct(SKU);
+                var result = await _productService.DeleteProduct(ID);
                 if (result) return NoContent();
                 else
                 {

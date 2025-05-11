@@ -43,11 +43,11 @@ namespace CrudProducts.src.Application.Services.Implements
         /// <summary>
         /// Elimina un producto por su SKU.
         /// </summary>
-        /// <param name="SKU">SKU del producto a eliminar.</param>
+        /// <param name="ID">ID del producto a eliminar.</param>
         /// <returns>True si se eliminó el producto, false en caso contrario.</returns>
-        public async Task<bool> DeleteProduct(string SKU)
+        public async Task<bool> DeleteProduct(string ID)
         {
-            var product = await _context.Products.FirstOrDefaultAsync(p => p.SKU == SKU);
+            var product = await _context.Products.FirstOrDefaultAsync(p => p.Id.ToString() == ID);
             if (product == null) return false;
             product.IsActive = false;
             await _context.SaveChangesAsync();
@@ -67,26 +67,26 @@ namespace CrudProducts.src.Application.Services.Implements
         }
 
         /// <summary>
-        /// Obtiene un producto por su SKU.
+        /// Obtiene un producto por su ID.
         /// </summary>
-        /// <param name="SKU">SKU del producto.</param>
-        /// <returns>El producto correspondiente al SKU proporcionado.</returns>
-        public async Task<Product?> GetProductBySKU(string SKU)
+        /// <param name="ID">ID del producto.</param>
+        /// <returns>El producto correspondiente al ID proporcionado.</returns>
+        public async Task<Product?> GetProductByID(string ID)
         {
-            return await _context.Products.AsNoTracking().FirstOrDefaultAsync( p => p.SKU == SKU);
+            return await _context.Products.AsNoTracking().FirstOrDefaultAsync( p => p.Id.ToString() == ID);
         }
 
         /// <summary>
         /// Actualiza un producto existente.
         /// </summary>
-        /// <param name="SKU">SKU del producto a actualizar.</param>
+        /// <param name="ID">ID del producto a actualizar.</param>
         /// <param name="product">Producto con los nuevos datos.</param>
         /// <returns>True si se actualizó el producto, false en caso contrario.</returns>
-        public async Task<object?> UpdateProduct(string SKU, UpdateProductDto product)
+        public async Task<object?> UpdateProduct(string ID, UpdateProductDto product)
         {
-            var verifyProduct = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.SKU == SKU);
+            var verifyProduct = await _context.Products.AsNoTracking().FirstOrDefaultAsync(p => p.Id.ToString() == ID);
             if (verifyProduct == null) return false;
-            if (!string.IsNullOrWhiteSpace(product.SKU) && product.SKU != SKU)
+            if (!string.IsNullOrWhiteSpace(product.SKU) && product.SKU != verifyProduct.SKU)
             {
                 
                 var existingSku = await _context.Products.AsNoTracking().AnyAsync(p => p.SKU == product.SKU);

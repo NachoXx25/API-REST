@@ -12,9 +12,9 @@ namespace CrudProducts.src.Application.Services.Interfaces
         /// <summary>
         /// Obtiene un producto por su SKU.
         /// </summary>
-        /// <param name="SKU">SKU del producto.</param>
-        /// <returns>El producto correspondiente al SKU proporcionado.</returns>
-        Task<Product?> GetProductBySKU(string SKU);
+        /// <param name="ID">ID del producto.</param>
+        /// <returns>El producto correspondiente al ID proporcionado.</returns>
+        Task<Product?> GetProductByID(string ID);
 
         /// <summary>
         /// Obtiene todos los productos.

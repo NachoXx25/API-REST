@@ -32,7 +32,6 @@ In the ```.env``` file, replace:
 
 - ```JWT_SECRET``` with your JWT secret key
 - ```MYSQL_CONNECTION``` with the connection string of MySQL
-- 
 Once you have replaced everything, save the changes and move on to the next step.
 
 

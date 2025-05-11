@@ -1,0 +1,230 @@
+{
+	"info": {
+		"_postman_id": "d3e670d9-d4dd-4f51-9bf1-1ad6be7b526a",
+		"name": "Tarea 4 Arquitectura de Sistemas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33657530"
+	},
+	"item": [
+		{
+			"name": "Leer Producto por ID",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/productos/00ca7350-b3fb-4d35-813f-9155304ee73d",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos",
+						"00ca7350-b3fb-4d35-813f-9155304ee73d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leer Productos",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL}}/productos?Page=2&PageSize=10",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos"
+					],
+					"query": [
+						{
+							"key": "Page",
+							"value": "2"
+						},
+						{
+							"key": "PageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Agregar Nuevo Producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Electro Lavadora\",\r\n  \"sku\": \"123456s78912\",\r\n  \"price\": \"1000\",\r\n  \"stock\": \"120\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL}}/productos",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "Name",
+							"value": "Computador",
+							"type": "text"
+						},
+						{
+							"key": "Sku",
+							"value": "1234556",
+							"type": "text"
+						},
+						{
+							"key": "Price",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "Stock",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{URL}}/productos/00ca7350-b3fb-4d35-813f-9155304ee73d",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos",
+						"00ca7350-b3fb-4d35-813f-9155304ee73d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Producto",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{URL}}/productos/00ca7350-b3fb-4d35-813f-9155304ee73d",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"productos",
+						"00ca7350-b3fb-4d35-813f-9155304ee73d"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "URL",
+			"value": "http://localhost:5161",
+			"type": "string"
+		},
+		{
+			"key": "Token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJKdGkiOiI5NGViZmNhZi0zNTY5LTRiOGYtYjFlNi0zZDBhYTQ0NjU5YmEiLCJJZCI6IjgiLCJFbWFpbCI6Ik9iaWU0M0B5YWhvby5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBZG1pbmlzdHJhZG9yIiwiZXhwIjoxNzUxOTI3MTkyfQ.rWHGJZyZwHF1k_AX7hduXf2iWEvKVM0rZsXJ2M-Ysy4",
+			"type": "string"
+		}
+	]
+}

@@ -1,5 +1,5 @@
-# StreamFlow - Modular monolith
-This is the repository of a modular monolith for the fictitious application "StreamFlow" from the subject "Arquitectura de Sistemas" at the Universidad Católica del Norte. All the necessary tools and commands to run the project are described below.
+# Crud of Products
+This is the repository of a simple CRUD of products made it in .NET 9.
 
 ## Pre-requisites
 - [.NET SDK](https://dotnet.microsoft.com/es-es/download) (version 9.0.4)
